@@ -1,0 +1,24 @@
+name: Build & Upload Artifact
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Skapa en testfil som artefakt
+        run: |
+          mkdir -p dist
+          echo "Hello from build!" > dist/output.txt
+
+      - name: Ladda upp artefakt
+        uses: actions/upload-artifact@v4
+        with:
+          name: mitt-paket
+          path: dist/
+          retention-days: 30
